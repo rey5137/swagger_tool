@@ -1,0 +1,73 @@
+swagger: '2.0'
+info:
+  title: Expected service
+schemes:
+  - http
+host: test.com
+paths:
+  /path/entities:
+    post:
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/entityRequest'
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/entityResponse'
+        '400':
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/definitions/errorResponse'
+    get:
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/entityResponse'
+definitions:
+  entityRequest:
+    type: object
+    properties:
+      string_field:
+        type: string
+      integer_field:
+        type: integer
+      datetime_field:
+        type: string
+        format: date-time
+      enum_field:
+        type: integer
+        enum:
+          - 1
+          - 2
+      boolean_field:
+        type: boolean
+  errorResponse:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+  entityResponse:
+    type: object
+    properties:
+      string_field:
+        type: string
+      integer_field:
+        type: integer
+      datetime_field:
+        type: string
+        format: date-time
